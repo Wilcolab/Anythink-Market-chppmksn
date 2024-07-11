@@ -32,7 +32,7 @@ type Item struct {
 }
 
 // Assuming this global slice acts as our inventory.
-var inventory := []Item{
+var inventory = []Item{
 	{ID: "1", Name: "Galactic Goggles"},
 	{ID: "2", Name: "Meteor Muffins"},
 	{ID: "3", Name: "Alien Antenna Kit"},
