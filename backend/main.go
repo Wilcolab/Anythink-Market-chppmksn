@@ -14,6 +14,7 @@ func main() {
 	router.GET("/items", itemsHandler)
 	router.POST("/items", addItem)
 	router.GET("/items/:id", getItemByID)
+	router.GET("/items/popular", getMostPopularItem)
 
 	router.Run()
 }
@@ -92,4 +93,23 @@ func incrementViewCount(index int) {
     mutex.Lock()
     defer mutex.Unlock()
     inventory[index].ViewCount++
+}
+
+func getMostPopularItem(c *gin.Context) {
+    if len(inventory) == 0 {
+        c.JSON(http.StatusNotFound, gin.H{"error": "Inventory is empty"})
+        return
+    }
+
+    var mostPopular Item
+    maxViews := -1
+
+    for _, item := range inventory {
+        if item.ViewCount > maxViews {
+            mostPopular = item
+            maxViews = item.ViewCount
+        }
+    }
+
+    c.JSON(http.StatusOK, mostPopular)
 }
