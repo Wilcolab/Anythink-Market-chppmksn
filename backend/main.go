@@ -31,7 +31,6 @@ type Item struct {
 }
 
 func itemsHandler(w http.ResponseWriter, r *http.Request) {
-    // Example items to return.
     items := []Item{
         {ID: "1", Name: "Galactic Goggles"},
         {ID: "2", Name: "Meteor Muffins"},
