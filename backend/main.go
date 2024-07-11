@@ -30,7 +30,8 @@ type Item struct {
     Name string `json:"name"`
 }
 
-func itemsHandler(w http.ResponseWriter, r *http.Request) {
+func itemsHandler(c *gin.Context) {
+    // Updated items with the provided names.
     items := []Item{
         {ID: "1", Name: "Galactic Goggles"},
         {ID: "2", Name: "Meteor Muffins"},
@@ -39,14 +40,6 @@ func itemsHandler(w http.ResponseWriter, r *http.Request) {
         {ID: "5", Name: "Quantum Quill"},
     }
 
-
-    // Set the Content-Type header.
-    w.Header().Set("Content-Type", "application/json")
-
-    // Encode the items into JSON and send it as the response.
-    err := json.NewEncoder(w).Encode(items)
-    if err != nil {
-        // Handle the error.
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+    // Use Gin's method to return JSON response.
+    c.JSON(http.StatusOK, items)
 }
